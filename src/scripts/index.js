@@ -1,8 +1,9 @@
 //Standalone runtime for Regenerator-compiled generator and async functions.
-import regeneratorRuntime from "regenerator-runtime";
-import "../styles/main.scss";
-import { handleSearch } from "./fetch.js";
+import regeneratorRuntime from 'regenerator-runtime';
+import '../styles/main.scss';
+// import { handleSearch } from './fetch.js';
+import { handleSearch } from './fetch2.js';
 
-const form = document.querySelector(".form");
+const form = document.querySelector('.form');
 
-form.addEventListener("submit", handleSearch);
+form.addEventListener('submit', handleSearch);

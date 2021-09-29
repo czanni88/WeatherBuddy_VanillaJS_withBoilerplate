@@ -26,7 +26,13 @@
               <label for="period"> and I will stay: </label>
               <select name="period" id="period">
                 <option value="1">One day</option>
-                <option value="7">One Week</option>
+                <option value="2">Two days</option>
+                <option value="3">Three days</option>
+                <option value="4">Four days</option>
+                <option value="5">Five days</option>
+                <option value="6">Six days</option>
+                <option value="7">Seven days</option>
+                <option value="8">Eight days</option>
               </select>
               <button class="locationSearchButton" type="submit">Go</button>
             </div>
@@ -35,7 +41,8 @@
         <div class="container__weather--data">
           <h2>
             The weather in <br /><span class="actualLocation"></span><br />for
-            the next <span class="periodOfStay"></span> day(s)
+            the next <span class="periodOfStay"></span>
+            <span class="dayOrDays"></span>
             <!--actualLocation and periodOfStay to be inserted by DOM manipulation-->
           </h2>
           <div class="weatherDetails"></div>

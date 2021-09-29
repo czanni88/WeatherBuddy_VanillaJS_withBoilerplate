@@ -1,6 +1,6 @@
 // This is where your styles can go, import any other scss or css files here or write your own style directly below
 
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 :root {
   font-size: 62.5%;
@@ -15,6 +15,11 @@
 
 body {
   font-size: 1.6rem;
+}
+
+.weatherDetails {
+  max-height: 15rem;
+  overflow: auto;
 }
 
 .container__main {
