@@ -1,4 +1,4 @@
-import { weatherDataEach3Hours, weatherDataByDay } from "./functions.js";
+import { weatherDataEach3Hours } from './functions.js';
 
 export async function handleSearch(evt) {
   evt.preventDefault();
@@ -6,10 +6,9 @@ export async function handleSearch(evt) {
   // Form values
   const cityName = evt.target.elements.locationSearch.value;
   const periodOfStay = evt.target.elements.period.value;
-  const shortOrLongList = evt.target.elements.longOrShortList.value;
 
   // DOM elements
-  const actualLocation = document.querySelector(".actualLocation");
+  const actualLocation = document.querySelector('.actualLocation');
 
   try {
     const response = await fetch(
@@ -17,7 +16,7 @@ export async function handleSearch(evt) {
     );
     const dayAndNightWeatherData = await response.json();
     if (response.status === 404) {
-      throw new Error("City not found");
+      throw new Error('City not found');
     }
 
     actualLocation.innerHTML = cityName;
@@ -27,11 +26,7 @@ export async function handleSearch(evt) {
       return time >= 9 && time <= 21;
     });
 
-    if (shortOrLongList === "short") {
-      weatherDataByDay(dayAndNightWeatherData, dayTimeWeatherData);
-    } else {
-      weatherDataEach3Hours(dayTimeWeatherData);
-    }
+    weatherDataEach3Hours(dayTimeWeatherData);
 
     return dayAndNightWeatherData;
   } catch (err) {
