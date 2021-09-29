@@ -49,9 +49,6 @@ div.searchInputField:not(:last-child) {
   margin-bottom: 1rem;
 }
 
-// .container__weather--data {
-// }
-
 .container__itens {
   border: 1px solid black;
   flex: 1 0 45%;
@@ -65,5 +62,9 @@ div.searchInputField:not(:last-child) {
 }
 
 .infoByHour {
-  border: 0.5px solid black;
+  border: 0.5px solid purple;
+}
+.weatherHeadline {
+  min-height: 6rem;
+  text-align: center;
 }

@@ -25,9 +25,13 @@ export const weatherDataEach3Hours = (dayTimeWeatherData) => {
   });
 };
 
-export const weatherDataDaily = (weatherData) => {
+export const weatherDataDaily = (weatherData, forecastDays) => {
   let dayCount = 0;
-  weatherData.daily.forEach((day) => {
+  let filteredArray = weatherData.daily.filter(
+    (e, index) => index < forecastDays
+  );
+  console.log(filteredArray);
+  filteredArray.forEach((day) => {
     const { max, min } = day.temp;
     const { main, description } = day.weather[0];
     const { wind_speed, humidity } = day;

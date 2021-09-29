@@ -13,17 +13,15 @@
           <h2>Where are you going to?</h2>
           <form class="form">
             <div class="searchInputField">
-              <label for="locationSearch">I am going to</label>
               <input
                 class="search__inputLocation"
                 type="text"
                 name="locationSearch"
-                id="locationSearch"
                 placeholder="Enter the city name"
               />
             </div>
             <div class="searchInputField">
-              <label for="period"> and I will stay: </label>
+              <label for="period"> I will stay: </label>
               <select name="period" id="period">
                 <option value="1">One day</option>
                 <option value="2">Two days</option>
@@ -39,10 +37,7 @@
           </form>
         </div>
         <div class="container__weather--data">
-          <h2>
-            The weather in <br /><span class="actualLocation"></span><br />for
-            the next <span class="periodOfStay"></span>
-            <span class="dayOrDays"></span>
+          <h2 class="weatherHeadline">
             <!--actualLocation and periodOfStay to be inserted by DOM manipulation-->
           </h2>
           <div class="weatherDetails"></div>
