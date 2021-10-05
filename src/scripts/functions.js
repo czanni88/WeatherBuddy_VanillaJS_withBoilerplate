@@ -1,4 +1,10 @@
 const containerForWeatherData = document.querySelector('.weatherDetails');
+const weatherHeadline = document.querySelector('.weatherHeadline');
+
+export const cityAndLength=(forecastDays, cityName)=>{
+  weatherHeadline.innerHTML = `The weather in ${cityName} <br> for
+  the next ${forecastDays} ${forecastDays < 2 ? 'Day' : 'Days'}`;
+}
 
 export const weatherDataDaily = (weatherData, forecastDays) => {
   let dayCount = 0;
