@@ -2,11 +2,13 @@
 import regeneratorRuntime from 'regenerator-runtime';
 import '../styles/main.scss';
 import { handleSearch } from './fetch.js';
-import { weatherDataDaily, cityAndLength } from './functions';
+import { weatherDataDaily, cityAndLength, handleClear } from './functions';
 
 const form = document.querySelector('.form');
+const clear = document.querySelector('.weatherHeadline');
 
 form.addEventListener('submit', handleSearch);
+clear.addEventListener('submit', handleClear);
 
 const savedName = localStorage.getItem('cityName');
 const savedDays = localStorage.getItem('forecastDays');

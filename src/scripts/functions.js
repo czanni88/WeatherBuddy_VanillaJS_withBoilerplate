@@ -1,11 +1,13 @@
 const containerForWeatherData = document.querySelector('.weatherDetails');
 const weatherHeadline = document.querySelector('.weatherHeadline');
 
-
-
 export const cityAndLength = (forecastDays, cityName) => {
   weatherHeadline.innerHTML = `The weather in ${cityName} <br> for
   the next ${forecastDays} ${forecastDays < 2 ? 'Day' : 'Days'}`;
+  weatherHeadline.insertAdjacentHTML(
+    'beforeend',
+    `<button class="clearButton" type="submit">Clear</button>`
+  );
 };
 
 export const weatherDataDaily = (weatherData, forecastDays) => {
@@ -13,7 +15,8 @@ export const weatherDataDaily = (weatherData, forecastDays) => {
   let filteredArray = weatherData.daily.filter(
     (e, index) => index < forecastDays
   );
-   filteredArray.forEach((day) => {
+  containerForWeatherData.innerHTML = '';
+  filteredArray.forEach((day) => {
     const { max, min } = day.temp;
     const { main, description } = day.weather[0];
     const { wind_speed, humidity } = day;
@@ -34,4 +37,17 @@ export const weatherDataDaily = (weatherData, forecastDays) => {
         </div>`
     );
   });
+};
+
+export const handleClear = (evt) => {
+  evt.preventDefault();
+
+  try {
+    localStorage.setItem('cityName', JSON.stringify());
+    localStorage.setItem('forecastDays', JSON.stringify());
+    localStorage.setItem('weatherData', JSON.stringify());
+  } catch (err) {
+    alert('Cannot clear storage');
+  }
+  window.location.reload();
 };
