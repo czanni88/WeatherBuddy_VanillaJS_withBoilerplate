@@ -1,11 +1,14 @@
 import { weatherDataDaily } from './functions.js';
 import { cityAndLength } from './functions.js';
 
+// DOM Element
+const form = document.querySelector('.form');
+
 export async function handleSearch(evt) {
   evt.preventDefault();
 
   // Form values
-  const cityName = evt.target.elements.locationSearch.value;
+  let cityName = evt.target.elements.locationSearch.value;
   const forecastDays = evt.target.elements.period.value;
 
   // FETCH
@@ -27,11 +30,24 @@ export async function handleSearch(evt) {
     );
     const weatherData = await response2.json();
 
+    // Local Storage
+
+    try {
+      localStorage.setItem('cityName', JSON.stringify(cityName));
+      localStorage.setItem('forecastDays', JSON.stringify(forecastDays));
+      localStorage.setItem('weatherData', JSON.stringify(weatherData));
+    } catch (err) {
+      alert('Cannot write to storage');
+    }
+
     // Rendering functions
     cityAndLength(forecastDays, cityName);
     weatherDataDaily(weatherData, forecastDays);
+
     //
   } catch (err) {
     alert(err);
   }
+  form.elements.locationSearch.value = '';
+  form.elements.period.value = 1;
 }

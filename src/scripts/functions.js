@@ -1,18 +1,19 @@
 const containerForWeatherData = document.querySelector('.weatherDetails');
 const weatherHeadline = document.querySelector('.weatherHeadline');
 
-export const cityAndLength=(forecastDays, cityName)=>{
+
+
+export const cityAndLength = (forecastDays, cityName) => {
   weatherHeadline.innerHTML = `The weather in ${cityName} <br> for
   the next ${forecastDays} ${forecastDays < 2 ? 'Day' : 'Days'}`;
-}
+};
 
 export const weatherDataDaily = (weatherData, forecastDays) => {
   let dayCount = 0;
   let filteredArray = weatherData.daily.filter(
     (e, index) => index < forecastDays
   );
-  console.log(filteredArray);
-  filteredArray.forEach((day) => {
+   filteredArray.forEach((day) => {
     const { max, min } = day.temp;
     const { main, description } = day.weather[0];
     const { wind_speed, humidity } = day;
