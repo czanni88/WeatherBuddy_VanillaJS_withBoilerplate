@@ -1,4 +1,4 @@
-const containerForWeatherData = document.querySelector('.weatherDetails');
+const weatherDetails = document.querySelector('.weatherDetails');
 const weatherHeadline = document.querySelector('.weatherHeadline');
 
 export const cityAndLength = (forecastDays, cityName) => {
@@ -6,7 +6,7 @@ export const cityAndLength = (forecastDays, cityName) => {
   the next ${forecastDays} ${forecastDays < 2 ? 'Day' : 'Days'}`;
   weatherHeadline.insertAdjacentHTML(
     'beforeend',
-    `<button class="clearButton" type="submit">Clear</button>`
+    `<button class="button" type="submit">Clear</button>`
   );
 };
 
@@ -15,22 +15,22 @@ export const weatherDataDaily = (weatherData, forecastDays) => {
   let filteredArray = weatherData.daily.filter(
     (e, index) => index < forecastDays
   );
-  containerForWeatherData.innerHTML = '';
+  weatherDetails.innerHTML = '';
   filteredArray.forEach((day) => {
     const { max, min } = day.temp;
     const { main, description } = day.weather[0];
     const { wind_speed, humidity } = day;
     dayCount += 1;
 
-    containerForWeatherData.insertAdjacentHTML(
+    weatherDetails.insertAdjacentHTML(
       'beforeend',
-      `<div class="infoByHour">
+      `<div class="infoByDay">
         <h3>${`day ${dayCount}`}</h3>
-        <p>The temperature will vary from ${min}°C to ${max}°C</p>
-        <p>The day will be ${
+        <p class="temp">The temperature will vary from ${min}°C to ${max}°C</p>
+        <p class  ="rain">The day will be ${
           main === 'Rain' ? `with ${description}` : 'without rain'
         } and the humidity will be at ${humidity}%</p>
-        <p>The wind will be at ${wind_speed}m/s, which means a ${
+        <p class="wind">The wind will be at ${wind_speed}m/s, which means a ${
         wind_speed < 3 ? 'weak' : wind_speed < 6 ? 'mild' : 'strong'
       } wind</p>
         

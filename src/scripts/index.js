@@ -10,6 +10,13 @@ const clear = document.querySelector('.weatherHeadline');
 form.addEventListener('submit', handleSearch);
 clear.addEventListener('submit', handleClear);
 
+const savedData = JSON.parse(localStorage.getItem('data'));
+const { cityName, forecastDays, weatherData } = savedData;
+if (savedData) {
+  weatherDataDaily(weatherData, forecastDays);
+  cityAndLength(forecastDays, cityName);
+}
+
 // const savedName = localStorage.getItem('cityName');
 // const savedDays = localStorage.getItem('forecastDays');
 // const savedWeather = localStorage.getItem('weatherData');
@@ -21,11 +28,3 @@ clear.addEventListener('submit', handleClear);
 //   weatherDataDaily(storagedWeatherData, storagedForecastDays);
 //   cityAndLength(storagedForecastDays, storagedCityName);
 // }
-
-const savedData = localStorage.getItem('data');
-const data = JSON.parse(savedData);
-const { cityName, forecastDays, weatherData } = data;
-if (savedData) {
-  weatherDataDaily(weatherData, forecastDays);
-  cityAndLength(forecastDays, cityName);
-}

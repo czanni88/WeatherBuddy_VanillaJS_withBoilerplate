@@ -1,0 +1,47 @@
+.container__weather {
+  border: 1px solid green;
+  flex: 1 1 50rem;
+  max-width: 60rem;
+  margin: 1rem;
+
+  .locationSearch {
+    text-align: center;
+    margin: 2rem;
+    .searchInputField:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+    h2 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .weatherHeadline {
+    min-height: 6rem;
+    text-align: center;
+  }
+
+  .weatherDetails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-height: 30rem;
+    overflow: auto;
+
+    .infoByDay {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 25rem;
+      max-width: 30rem;
+      margin: 1rem;
+      border: 0.5rem solid green;
+      h3 {
+        text-align: center;
+        margin: 1rem;
+        color: red;
+      }
+      p {
+        margin: 1rem;
+      }
+    }
+  }
+}

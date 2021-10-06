@@ -1,8 +1,11 @@
 // This is where your styles can go, import any other scss or css files here or write your own style directly below
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import './weather.scss';
+@import './items.scss';
+@import './checklist.scss';
 
-:root {
+root {
   font-size: 62.5%;
   box-sizing: border-box;
 }
@@ -15,60 +18,24 @@
 
 body {
   font-size: 1.6rem;
-}
-
-.weatherDetails {
-  max-height: 15rem;
-  overflow: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .container__main {
-  width: 90vw;
-  margin: auto;
+  width: 95vw;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
-.container__weather {
-  border: 1px solid black;
-  flex: 1 0 45%;
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  padding: 1rem;
+}
+
+.button {
   margin: 1rem;
-}
-
-.container__weather--locationSearch {
-  border: 1px solid black;
-}
-
-.container__weather--locationSearch h2,
-.container__weather--locationSearch form {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-div.searchInputField:not(:last-child) {
-  margin-bottom: 1rem;
-}
-
-.container__itens {
-  border: 1px solid black;
-  flex: 1 0 45%;
-  margin: 1rem;
-}
-
-.container__checklist {
-  border: 1px solid black;
-  margin: 1rem;
-  width: 100%;
-}
-
-.infoByHour {
-  border: 0.5px solid purple;
-}
-.weatherHeadline {
-  min-height: 6rem;
-  text-align: center;
-}
-
-.clearButton {
-  margin: 1rem;
+  padding: 0.3rem 1rem;
+  border-radius: 0.5rem;
 }

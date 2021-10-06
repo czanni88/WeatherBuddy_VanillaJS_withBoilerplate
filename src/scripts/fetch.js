@@ -49,6 +49,8 @@ export async function handleSearch(evt) {
   } catch (err) {
     alert(err);
   }
-  form.elements.locationSearch.value = '';
-  form.elements.period.value = 1;
+  // form.elements.locationSearch.value = '';
+  // form.elements.period.value = 1;
+
+  form.reset();
 }

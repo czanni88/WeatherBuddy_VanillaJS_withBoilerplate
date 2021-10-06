@@ -1,0 +1,26 @@
+.container__itens {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  flex: 1 1 50rem;
+  max-width: 60rem;
+  margin: 1rem;
+  .suggestions {
+    h2 {
+      margin: 2rem 0rem;
+      text-align: center;
+    }
+  }
+  .extraItems {
+    h2 {
+      margin: 2rem 0rem;
+      text-align: center;
+    }
+    form {
+      display: flex;
+      text-align: center;
+      justify-content: space-around;
+      margin: 3rem 0rem;
+    }
+  }
+}
