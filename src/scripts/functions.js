@@ -41,13 +41,6 @@ export const weatherDataDaily = (weatherData, forecastDays) => {
 
 export const handleClear = (evt) => {
   evt.preventDefault();
-
-  try {
-    localStorage.setItem('cityName', JSON.stringify());
-    localStorage.setItem('forecastDays', JSON.stringify());
-    localStorage.setItem('weatherData', JSON.stringify());
-  } catch (err) {
-    alert('Cannot clear storage');
-  }
+  localStorage.clear();
   window.location.reload();
 };

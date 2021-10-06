@@ -33,9 +33,10 @@ export async function handleSearch(evt) {
     // Local Storage
 
     try {
-      localStorage.setItem('cityName', JSON.stringify(cityName));
-      localStorage.setItem('forecastDays', JSON.stringify(forecastDays));
-      localStorage.setItem('weatherData', JSON.stringify(weatherData));
+      localStorage.setItem(
+        'data',
+        JSON.stringify({ cityName, forecastDays, weatherData })
+      );
     } catch (err) {
       alert('Cannot write to storage');
     }
