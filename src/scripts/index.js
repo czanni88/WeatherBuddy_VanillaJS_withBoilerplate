@@ -7,16 +7,18 @@ import { weatherDataDaily, cityAndLength, handleClear } from './functions';
 const form = document.querySelector('.form');
 const clear = document.querySelector('.weatherHeadline');
 
-form.addEventListener('submit', handleSearch);
-clear.addEventListener('submit', handleClear);
+form.addEventListener('submit', handleSearch); // Fetch file
+clear.addEventListener('submit', handleClear); // Function file
 
 const savedData = JSON.parse(localStorage.getItem('data'));
 const { cityName, forecastDays, weatherData } = savedData;
+
 if (savedData) {
   weatherDataDaily(weatherData, forecastDays);
   cityAndLength(forecastDays, cityName);
 }
 
+// HALL OF SHAME /// :D
 // const savedName = localStorage.getItem('cityName');
 // const savedDays = localStorage.getItem('forecastDays');
 // const savedWeather = localStorage.getItem('weatherData');

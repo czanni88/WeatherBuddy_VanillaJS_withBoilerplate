@@ -3,6 +3,7 @@
   flex-direction: column;
   border: 1px solid black;
   flex: 1 1 50rem;
+
   max-width: 60rem;
   margin: 1rem;
   .suggestions {
@@ -20,7 +21,8 @@
       display: flex;
       text-align: center;
       justify-content: space-around;
-      margin: 3rem 0rem;
+      margin: auto;
+      width: 60%;
     }
   }
 }

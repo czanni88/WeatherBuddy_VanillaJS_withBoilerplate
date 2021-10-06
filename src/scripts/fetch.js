@@ -1,9 +1,6 @@
 import { weatherDataDaily } from './functions.js';
 import { cityAndLength } from './functions.js';
 
-// DOM Element
-const form = document.querySelector('.form');
-
 export async function handleSearch(evt) {
   evt.preventDefault();
 
@@ -49,8 +46,7 @@ export async function handleSearch(evt) {
   } catch (err) {
     alert(err);
   }
-  // form.elements.locationSearch.value = '';
-  // form.elements.period.value = 1;
 
+  const form = document.querySelector('.form');
   form.reset();
 }

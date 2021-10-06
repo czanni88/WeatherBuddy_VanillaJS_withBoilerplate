@@ -37,6 +37,7 @@ export const weatherDataDaily = (weatherData, forecastDays) => {
         </div>`
     );
   });
+  console.log(filteredArray);
 };
 
 export const handleClear = (evt) => {
