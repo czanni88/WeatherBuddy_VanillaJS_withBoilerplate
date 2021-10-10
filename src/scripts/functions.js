@@ -37,6 +37,7 @@ export const weatherDataDaily = (filteredWeatherData) => {
   });
 };
 
+
 export const handleClear = (evt) => {
   evt.preventDefault();
   localStorage.clear();

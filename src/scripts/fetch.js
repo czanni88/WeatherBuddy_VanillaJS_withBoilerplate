@@ -26,7 +26,7 @@ export async function handleSearch(evt) {
       `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=5be60d4872c3eae278822b9856894ca8`
     );
     const weatherData = await response2.json();
-    
+
     let filteredWeatherData = weatherData.daily.filter(
       (e, index) => index < forecastDays
     );
@@ -40,10 +40,31 @@ export async function handleSearch(evt) {
     } catch (err) {
       alert('Cannot write to storage');
     }
-
+    // console.log(filteredWeatherData);
     // Rendering functions
     cityAndLength(forecastDays, cityName);
     weatherDataDaily(filteredWeatherData);
+
+    const compiledWeatherData = filteredWeatherData.reduce(
+      (acc, obj) => {
+        const { max, min } = obj.temp;
+        const { main, description } = obj.weather[0];
+
+        return {
+          sumOfMax: acc.sumOfMax + max,
+          sumOfMin: acc.sumOfMin + min,
+          arrayOfMain: [...acc.arrayOfMain, main],
+          arrayOfDescription: [...acc.arrayOfDescription, description],
+        };
+      },
+      {
+        sumOfMax: 0,
+        sumOfMin: 0,
+        arrayOfMain: [],
+        arrayOfDescription: [],
+      }
+    );
+    console.log(compiledWeatherData);
 
     //
   } catch (err) {
