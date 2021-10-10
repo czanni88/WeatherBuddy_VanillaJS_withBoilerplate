@@ -26,13 +26,16 @@ export async function handleSearch(evt) {
       `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=5be60d4872c3eae278822b9856894ca8`
     );
     const weatherData = await response2.json();
-
+    
+    let filteredWeatherData = weatherData.daily.filter(
+      (e, index) => index < forecastDays
+    );
     // Local Storage
 
     try {
       localStorage.setItem(
         'data',
-        JSON.stringify({ cityName, forecastDays, weatherData })
+        JSON.stringify({ cityName, forecastDays, filteredWeatherData })
       );
     } catch (err) {
       alert('Cannot write to storage');
@@ -40,7 +43,7 @@ export async function handleSearch(evt) {
 
     // Rendering functions
     cityAndLength(forecastDays, cityName);
-    weatherDataDaily(weatherData, forecastDays);
+    weatherDataDaily(filteredWeatherData);
 
     //
   } catch (err) {

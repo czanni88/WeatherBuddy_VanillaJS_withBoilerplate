@@ -10,13 +10,11 @@ export const cityAndLength = (forecastDays, cityName) => {
   );
 };
 
-export const weatherDataDaily = (weatherData, forecastDays) => {
+export const weatherDataDaily = (filteredWeatherData) => {
   let dayCount = 0;
-  let filteredArray = weatherData.daily.filter(
-    (e, index) => index < forecastDays
-  );
+
   weatherDetails.innerHTML = '';
-  filteredArray.forEach((day) => {
+  filteredWeatherData.forEach((day) => {
     const { max, min } = day.temp;
     const { main, description } = day.weather[0];
     const { wind_speed, humidity } = day;
@@ -37,7 +35,6 @@ export const weatherDataDaily = (weatherData, forecastDays) => {
         </div>`
     );
   });
-  console.log(filteredArray);
 };
 
 export const handleClear = (evt) => {

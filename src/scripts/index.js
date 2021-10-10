@@ -11,10 +11,10 @@ form.addEventListener('submit', handleSearch); // Fetch file
 clear.addEventListener('submit', handleClear); // Function file
 
 const savedData = JSON.parse(localStorage.getItem('data'));
-const { cityName, forecastDays, weatherData } = savedData;
 
 if (savedData) {
-  weatherDataDaily(weatherData, forecastDays);
+  const { cityName, forecastDays, filteredWeatherData } = savedData;
+  weatherDataDaily(filteredWeatherData);
   cityAndLength(forecastDays, cityName);
 }
 
