@@ -24,7 +24,7 @@ export const weatherDataDaily = (filteredWeatherData) => {
       'beforeend',
       `<div class="infoByDay">
         <h3>${`day ${dayCount}`}</h3>
-        <img src="http://openweathermap.org/img/wn/${icon}@2x.png">
+        <img class="weatherIcon" src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather icon">
         <p class="temp">The temperature will vary from ${min}°C to ${max}°C</p>
         <p class  ="rain"> The day will be ${
           main === 'Rain'
