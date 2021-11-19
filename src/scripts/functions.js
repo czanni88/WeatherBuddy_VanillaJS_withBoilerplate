@@ -1,7 +1,9 @@
 const weatherDailyDetails = document.querySelector('.weatherDailyDetails');
 const weatherHeadline = document.querySelector('.weatherHeadline');
+const searchFormContainer = document.querySelector('.searchFormContainer');
 
 export const weatherHeadlineRendering = (forecastDays, cityName) => {
+  searchFormContainer.style.display = 'none';
   let cityNameSanitized = cityName
     .split(' ')
     .map((str) => str[0].toUpperCase() + str.slice(1).toLowerCase())
@@ -10,7 +12,7 @@ export const weatherHeadlineRendering = (forecastDays, cityName) => {
   the next ${forecastDays} ${forecastDays < 2 ? 'Day' : 'Days'}`;
   weatherHeadline.insertAdjacentHTML(
     'beforeend',
-    `<button class="button" type="submit">Reset</button>`
+    `<button class="button" type="submit">New Search</button>`
   );
 };
 
@@ -46,8 +48,13 @@ export const weatherDailyDataRendering = (
   });
 };
 
-export const handleClear = (evt) => {
+export const handleNewSearch = (evt) => {
   evt.preventDefault();
+  const weatherContainer = document.querySelector('.forecastContainer');
+  weatherContainer.style.display = 'none';
+  const itemsListContainer = document.querySelector('.itemsListContainer');
+  itemsListContainer.style.display = 'none';
+  searchFormContainer.style.display = 'block';
   localStorage.clear();
   window.location.reload();
 };

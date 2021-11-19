@@ -5,14 +5,14 @@ import { handleSearch } from './fetch.js';
 import {
   weatherDailyDataRendering,
   weatherHeadlineRendering,
-  handleClear,
+  handleNewSearch,
 } from './functions';
 
 const form = document.querySelector('.searchForm');
 const clear = document.querySelector('.weatherHeadline');
 
 form.addEventListener('submit', handleSearch); // Fetch file
-clear.addEventListener('submit', handleClear); // Function file
+clear.addEventListener('submit', handleNewSearch); // Function file
 
 const savedData = JSON.parse(localStorage.getItem('data'));
 
@@ -21,5 +21,8 @@ if (savedData) {
     savedData;
   weatherDailyDataRendering(filteredWeatherDataByDesiredLengthOfStay);
   weatherHeadlineRendering(forecastDays, cityName);
+  const weatherContainer = document.querySelector('.forecastContainer');
+  weatherContainer.style.display = 'flex';
+  const itemsListContainer = document.querySelector('.itemsListContainer');
+  itemsListContainer.style.display = 'flex';
 }
-

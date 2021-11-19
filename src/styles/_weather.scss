@@ -1,23 +1,30 @@
+.searchFormContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  .searchInputField:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+
 .forecastContainer {
+  display: none;
   border: 1px solid green;
   flex: 1 1 50rem;
   max-width: 60rem;
   margin: 1rem;
 
-  .searchFormContainer {
-    text-align: center;
-    margin: 2rem;
-    .searchInputField:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-    h2 {
-      margin-bottom: 1rem;
-    }
-  }
-
   .weatherHeadline {
-    min-height: 6rem;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+    justify-content: center;
+    min-height: 6rem;
+    margin: 2rem;
   }
 
   .weatherDailyDetails {
