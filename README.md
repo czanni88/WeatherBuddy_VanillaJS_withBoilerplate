@@ -1,4 +1,6 @@
-# Create your Vanilla JavaScript project for the portfolio
+# Vanilla JavaScript practice project
 
-* Organize your code;
-* and have fun
+- DOM manipulation;
+- Fetch;
+- Array methods: map and filter;
+- Local Storage;
