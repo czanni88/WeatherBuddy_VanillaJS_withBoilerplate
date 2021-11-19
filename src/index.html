@@ -7,73 +7,57 @@
     <title>Weather Buddy</title>
   </head>
   <body>
-    <main class="container__main">
-      <div class="container__weather">
-        <div class="locationSearch">
-          <h2>Where are you going to?</h2>
-          <form class="form">
-            <div class="searchInputField">
-              <input
-                class="search__inputLocation"
-                type="text"
-                name="locationSearch"
-                placeholder="Enter the city name"
-              />
-            </div>
-            <div class="searchInputField">
-              <label for="period"> I will stay: </label>
-              <select name="period" id="period">
-                <option value="1">&nbspOne day</option>
-                <option value="2">&nbspTwo days</option>
-                <option value="3">&nbspThree days</option>
-                <option value="4">&nbspFour days</option>
-                <option value="5">&nbspFive days</option>
-                <option value="6">&nbspSix days</option>
-                <option value="7">&nbspSeven days</option>
-                <option value="8">&nbspEight days</option>
-              </select>
-              <button class="button" type="submit">Go</button>
-            </div>
-          </form>
-        </div>
-        <div class="container__weather">
-          <form class="weatherHeadline">
-            <!--actualLocation and periodOfStay to be inserted by DOM manipulation-->
-          </form>
+    <main>
+      <div class="searchFormContainer">
+        <h2>Where are you going to?</h2>
+        <form class="searchForm">
+          <input
+            class="searchInputField"
+            type="text"
+            name="locationSearch"
+            placeholder="Enter the city name"
+          />
 
-          <div class="weatherDetails"></div>
+          <div class="searchInputField">
+            <label for="period"> I will stay: </label>
+            <select name="period" id="period">
+              <option value="1">&nbspOne day</option>
+              <option value="2">&nbspTwo days</option>
+              <option value="3">&nbspThree days</option>
+              <option value="4">&nbspFour days</option>
+              <option value="5">&nbspFive days</option>
+              <option value="6">&nbspSix days</option>
+              <option value="7">&nbspSeven days</option>
+              <option value="8">&nbspEight days</option>
+            </select>
+            <button type="submit">Go</button>
+          </div>
+        </form>
+      </div>
 
+      <div class="forecastContainer">
+        <form class="weatherHeadline">
+          <!--actualLocation and periodOfStay to be inserted by DOM manipulation-->
+        </form>
+
+        <div class="weatherDailyDetails">
           <!-- weatherDetails <li's> to be inserted by DOM manipulation-->
         </div>
       </div>
-      <div class="container__itens">
-        <div class="suggestions">
-          <p class="weatherResume">
-            <!-- to be inserted by DOM manipulation-->
-          </p>
-          <h2>You may need:</h2>
-          <ul class="listOfItensSuggested"></ul>
-          <!-- listOfItensSuggested <li's> to be inserted by DOM manipulation-->
-        </div>
-        <div class="extraItems">
-          <h2>What else should you take with me?</h2>
+
+      <div class="itemsListContainer">
+        <div class="itemsListForm">
+          <h2>What should you take with you?</h2>
           <form>
             <input
-              class="AddItensInputField"
               type="text"
               name="AddItens"
               id="AddItens"
               placeholder="Include in your Checklist"
             />
-            <button class="button" type="submit">Add Item</button>
+            <button type="submit">Add Item</button>
           </form>
         </div>
-      </div>
-      <div class="container__checklist">
-        <h2>Your Checklist</h2>
-        <ul>
-          <!-- <li's> to be inserted by DOM manipulation-->
-        </ul>
       </div>
     </main>
   </body>

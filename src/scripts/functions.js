@@ -1,26 +1,32 @@
-const weatherDetails = document.querySelector('.weatherDetails');
+const weatherDailyDetails = document.querySelector('.weatherDailyDetails');
 const weatherHeadline = document.querySelector('.weatherHeadline');
 
-export const cityAndLength = (forecastDays, cityName) => {
-  weatherHeadline.innerHTML = `The weather in ${cityName} <br> for
+export const weatherHeadlineRendering = (forecastDays, cityName) => {
+  let cityNameSanitized = cityName
+    .split(' ')
+    .map((str) => str[0].toUpperCase() + str.slice(1).toLowerCase())
+    .join(' ');
+  weatherHeadline.innerHTML = `The weather in ${cityNameSanitized} <br> for
   the next ${forecastDays} ${forecastDays < 2 ? 'Day' : 'Days'}`;
   weatherHeadline.insertAdjacentHTML(
     'beforeend',
-    `<button class="button" type="submit">Clear</button>`
+    `<button class="button" type="submit">Reset</button>`
   );
 };
 
-export const weatherDataDaily = (filteredWeatherData) => {
+export const weatherDailyDataRendering = (
+  filteredWeatherDataByDesiredLengthOfStay
+) => {
   let dayCount = 0;
 
-  weatherDetails.innerHTML = '';
-  filteredWeatherData.forEach((day) => {
+  weatherDailyDetails.innerHTML = '';
+  filteredWeatherDataByDesiredLengthOfStay.forEach((day) => {
     const { max, min } = day.temp;
     const { main, description, icon } = day.weather[0];
     const { wind_speed, humidity } = day;
     dayCount += 1;
-    console.log(day.weather[0]);
-    weatherDetails.insertAdjacentHTML(
+    // console.log(day.weather[0]);
+    weatherDailyDetails.insertAdjacentHTML(
       'beforeend',
       `<div class="infoByDay">
         <h3>${`day ${dayCount}`}</h3>

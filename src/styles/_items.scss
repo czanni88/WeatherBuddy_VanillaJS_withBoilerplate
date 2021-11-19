@@ -1,4 +1,4 @@
-.container__itens {
+.itemsListContainer {
   display: flex;
   flex-direction: column;
   border: 1px solid black;
@@ -6,13 +6,8 @@
 
   max-width: 60rem;
   margin: 1rem;
-  .suggestions {
-    h2 {
-      margin: 2rem 0rem;
-      text-align: center;
-    }
-  }
-  .extraItems {
+  
+  .itemsListForm {
     h2 {
       margin: 2rem 0rem;
       text-align: center;

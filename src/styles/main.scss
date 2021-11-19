@@ -1,9 +1,8 @@
 // This is where your styles can go, import any other scss or css files here or write your own style directly below
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
-@import './weather.scss';
-@import './items.scss';
-@import './checklist.scss';
+@import './_weather.scss';
+@import './_items.scss';
 
 root {
   font-size: 62.5%;
@@ -22,7 +21,7 @@ body {
   justify-content: center;
 }
 
-.container__main {
+main {
   width: 95vw;
   display: flex;
   flex-wrap: wrap;
@@ -34,7 +33,7 @@ body {
   padding: 1rem;
 }
 
-.button {
+button {
   margin: 1rem;
   padding: 0.3rem 1rem;
   border-radius: 0.5rem;

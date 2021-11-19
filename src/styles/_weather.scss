@@ -1,10 +1,10 @@
-.container__weather {
+.forecastContainer {
   border: 1px solid green;
   flex: 1 1 50rem;
   max-width: 60rem;
   margin: 1rem;
 
-  .locationSearch {
+  .searchFormContainer {
     text-align: center;
     margin: 2rem;
     .searchInputField:not(:last-child) {
@@ -20,7 +20,7 @@
     text-align: center;
   }
 
-  .weatherDetails {
+  .weatherDailyDetails {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
