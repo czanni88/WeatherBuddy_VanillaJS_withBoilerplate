@@ -6,6 +6,9 @@ import {
 export async function handleSearch(evt) {
   evt.preventDefault();
 
+  const weatherContainer = document.querySelector('.forecastContainer');
+  const itemsListContainer = document.querySelector('.itemsListContainer');
+
   //
   // Form values
   let cityName = evt.target.elements.locationSearch.value;
@@ -57,9 +60,8 @@ export async function handleSearch(evt) {
 
     //
     // Rendering functions
-    const weatherContainer = document.querySelector('.forecastContainer');
+
     weatherContainer.style.display = 'flex';
-    const itemsListContainer = document.querySelector('.itemsListContainer');
     itemsListContainer.style.display = 'flex';
 
     weatherHeadlineRendering(forecastDays, cityName);

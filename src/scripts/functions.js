@@ -1,6 +1,8 @@
 const weatherDailyDetails = document.querySelector('.weatherDailyDetails');
 const weatherHeadline = document.querySelector('.weatherHeadline');
 const searchFormContainer = document.querySelector('.searchFormContainer');
+const weatherContainer = document.querySelector('.forecastContainer');
+const itemsListContainer = document.querySelector('.itemsListContainer');
 
 export const weatherHeadlineRendering = (forecastDays, cityName) => {
   searchFormContainer.style.display = 'none';
@@ -50,9 +52,7 @@ export const weatherDailyDataRendering = (
 
 export const handleNewSearch = (evt) => {
   evt.preventDefault();
-  const weatherContainer = document.querySelector('.forecastContainer');
   weatherContainer.style.display = 'none';
-  const itemsListContainer = document.querySelector('.itemsListContainer');
   itemsListContainer.style.display = 'none';
   searchFormContainer.style.display = 'block';
   localStorage.clear();
