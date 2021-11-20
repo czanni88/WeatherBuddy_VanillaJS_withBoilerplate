@@ -59,14 +59,12 @@ export const weatherDailyDataRendering = (arrayOfDailyData_LengthOfStay) => {
 
 export const handleItemsList = (e) => {
   e.preventDefault();
-
+  let item = e.target.elements.addItems.value;
   itemsList.insertAdjacentHTML(
     'beforeend',
-    `<div>
-      <h3> "Hello" </h3>
-
-      </div>`
+    `<li> ${item} <button>x</button></li>`
   );
+  e.target.elements.addItems.value = '';
 };
 
 // Main Functions
@@ -158,15 +156,24 @@ export async function handleSearch(evt) {
     typesOfSky.map((sky) => {
       if (sky === 'Rain') {
         itemsSuggestions.rain.map((item) => {
-          return itemsList.insertAdjacentHTML('beforeend', `<li>${item}</li>`);
+          return itemsList.insertAdjacentHTML(
+            'beforeend',
+            `<li>${item}<button>x</button></li>`
+          );
         });
       } else if (sky === 'Clouds') {
         itemsSuggestions.clouds.map((item) => {
-          return itemsList.insertAdjacentHTML('beforeend', `<li>${item}</li>`);
+          return itemsList.insertAdjacentHTML(
+            'beforeend',
+            `<li>${item}<button>x</button></li>`
+          );
         });
       } else if (sky === 'Clear') {
         itemsSuggestions.clear.map((item) => {
-          return itemsList.insertAdjacentHTML('beforeend', `<li>${item}</li>`);
+          return itemsList.insertAdjacentHTML(
+            'beforeend',
+            `<li>${item}<button>x</button></li>`
+          );
         });
       }
     });
