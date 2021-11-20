@@ -3,28 +3,34 @@ const weatherHeadline = document.querySelector('.weatherHeadline');
 const searchFormContainer = document.querySelector('.searchFormContainer');
 const weatherContainer = document.querySelector('.forecastContainer');
 const itemsListContainer = document.querySelector('.itemsListContainer');
+const form = document.querySelector('.searchForm');
+const itemsList = document.querySelector('.itemsList');
+const itemsSuggestions = {
+  rain: ['Umbrella', 'Galocha'],
+  clouds: ['Jacketa', 'Gorro'],
+  clear: ['Bermuda', 'Protetor Solar'],
+};
 
-export const weatherHeadlineRendering = (forecastDays, cityName) => {
+// Helper Functions
+export const weatherHeadlineRendering = (lengthOfStay, cityName) => {
   searchFormContainer.style.display = 'none';
   let cityNameSanitized = cityName
     .split(' ')
     .map((str) => str[0].toUpperCase() + str.slice(1).toLowerCase())
     .join(' ');
   weatherHeadline.innerHTML = `The weather in ${cityNameSanitized} <br> for
-  the next ${forecastDays} ${forecastDays < 2 ? 'Day' : 'Days'}`;
+  the next ${lengthOfStay} ${lengthOfStay < 2 ? 'Day' : 'Days'}`;
   weatherHeadline.insertAdjacentHTML(
     'beforeend',
-    `<button class="button" type="submit">New Search</button>`
+    `<button class="button" type="button">New Search</button>`
   );
 };
 
-export const weatherDailyDataRendering = (
-  filteredWeatherDataByDesiredLengthOfStay
-) => {
+export const weatherDailyDataRendering = (arrayOfDailyData_LengthOfStay) => {
   let dayCount = 0;
 
   weatherDailyDetails.innerHTML = '';
-  filteredWeatherDataByDesiredLengthOfStay.forEach((day) => {
+  arrayOfDailyData_LengthOfStay.forEach((day) => {
     const { max, min } = day.temp;
     const { main, description, icon } = day.weather[0];
     const { wind_speed, humidity } = day;
@@ -39,15 +45,139 @@ export const weatherDailyDataRendering = (
         <p class  ="rain"> The day will be ${
           main === 'Rain'
             ? `with ${description}`
-            : `with ${description} but without rain`
+            : main === 'Clouds'
+            ? `with ${description} but without rain`
+            : `with ${description}`
         } and the humidity will be at ${humidity}%</p>
         <p class="wind">The wind will be at ${wind_speed}m/s, which means a ${
         wind_speed < 3 ? 'weak' : wind_speed < 6 ? 'mild' : 'strong'
       } wind</p>
-        
         </div>`
     );
   });
+};
+
+export const handleItemsList = (e) => {
+  e.preventDefault();
+
+  itemsList.insertAdjacentHTML(
+    'beforeend',
+    `<div>
+      <h3> "Hello" </h3>
+
+      </div>`
+  );
+};
+
+// Main Functions
+
+export async function handleSearch(evt) {
+  evt.preventDefault();
+
+  let cityName = evt.target.elements.locationSearch.value;
+  const lengthOfStay = evt.target.elements.period.value;
+
+  // FETCH
+  try {
+    // FIRST FETCH - Extracting parameters: In order to be able to Fetch using "City Name", we need to first extract "Latitude" and "Longitude" from the first Fetch. The SECOND FETCH is the one that we want but it wont accept "City Name" as valid parameter.
+
+    const response1 = await fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=5be60d4872c3eae278822b9856894ca8`
+    );
+    const cityLatLon = await response1.json();
+    if (response1.status === 404 || cityLatLon.length === 0) {
+      throw new Error('City not found');
+    }
+
+    const lat = cityLatLon[0].lat;
+    const lon = cityLatLon[0].lon;
+
+    // SECOND FETCH
+
+    const response2 = await fetch(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=5be60d4872c3eae278822b9856894ca8`
+    );
+    const weatherData = await response2.json();
+
+    let arrayOfDailyData_LengthOfStay = weatherData.daily.filter(
+      (e, index) => index < lengthOfStay
+    );
+
+    // Local Storage
+
+    try {
+      localStorage.setItem(
+        'data',
+        JSON.stringify({
+          cityName,
+          lengthOfStay,
+          arrayOfDailyData_LengthOfStay,
+        })
+      );
+    } catch (err) {
+      alert('Cannot write to storage');
+    }
+    console.log(arrayOfDailyData_LengthOfStay);
+
+    // Rendering functions
+
+    weatherContainer.style.display = 'flex';
+    itemsListContainer.style.display = 'flex';
+
+    weatherDailyDataRendering(arrayOfDailyData_LengthOfStay);
+    weatherHeadlineRendering(lengthOfStay, cityName);
+
+    const compiledWeatherData = arrayOfDailyData_LengthOfStay.reduce(
+      (acc, obj) => {
+        const { max, min } = obj.temp;
+        const { main, description } = obj.weather[0];
+
+        return {
+          sumOfMax: acc.sumOfMax + max,
+          sumOfMin: acc.sumOfMin + min,
+          arrayOfMain: [...acc.arrayOfMain, main],
+          arrayOfDescription: [...acc.arrayOfDescription, description],
+        };
+      },
+      {
+        sumOfMax: 0,
+        sumOfMin: 0,
+        arrayOfMain: [],
+        arrayOfDescription: [],
+      }
+    );
+    console.log(compiledWeatherData);
+    const { sumOfMax, sumOfMin, arrayOfMain } = compiledWeatherData;
+    const averageMaxTemp = sumOfMax / lengthOfStay;
+    const averageMinTemp = sumOfMin / lengthOfStay;
+    const typesOfSky = arrayOfMain.filter(
+      (sky, index) => arrayOfMain.indexOf(sky) === index
+    );
+    console.log(averageMaxTemp, averageMinTemp, typesOfSky, itemsSuggestions);
+
+    typesOfSky.map((sky) => {
+      if (sky === 'Rain') {
+        itemsSuggestions.rain.map((item) => {
+          return itemsList.insertAdjacentHTML('beforeend', `<li>${item}</li>`);
+        });
+      } else if (sky === 'Clouds') {
+        itemsSuggestions.clouds.map((item) => {
+          return itemsList.insertAdjacentHTML('beforeend', `<li>${item}</li>`);
+        });
+      } else if (sky === 'Clear') {
+        itemsSuggestions.clear.map((item) => {
+          return itemsList.insertAdjacentHTML('beforeend', `<li>${item}</li>`);
+        });
+      }
+    });
+  } catch (err) {
+    alert(err);
+  }
+
+  form.reset();
+}
+const removeTask = (event) => {
+  event.target.parentElement.remove();
 };
 
 export const handleNewSearch = (evt) => {
@@ -57,4 +187,12 @@ export const handleNewSearch = (evt) => {
   searchFormContainer.style.display = 'block';
   localStorage.clear();
   window.location.reload();
+};
+
+export const handleLocalStorage = (savedData) => {
+  const { cityName, lengthOfStay, arrayOfDailyData_LengthOfStay } = savedData;
+  weatherDailyDataRendering(arrayOfDailyData_LengthOfStay);
+  weatherHeadlineRendering(lengthOfStay, cityName);
+  weatherContainer.style.display = 'flex';
+  itemsListContainer.style.display = 'flex';
 };

@@ -2,5 +2,5 @@
 
 - DOM manipulation;
 - Fetch;
-- Array methods: map and filter;
+- Array methods: map, filter and reduce;
 - Local Storage;
