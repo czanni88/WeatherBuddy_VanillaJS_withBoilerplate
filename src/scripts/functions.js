@@ -6,9 +6,9 @@ const itemsListContainer = document.querySelector('.itemsListContainer');
 const form = document.querySelector('.searchForm');
 const itemsList = document.querySelector('.itemsList');
 const itemsSuggestions = {
-  rain: ['Umbrella', 'Galocha'],
-  clouds: ['Jacketa', 'Gorro'],
-  clear: ['Bermuda', 'Protetor Solar'],
+  rain: ['Umbrella', 'Rubber Boot'],
+  clouds: ['Jacket', 'Scarf'],
+  clear: ['Short', 'Sunscreen'],
 };
 
 // Helper Functions
@@ -62,18 +62,23 @@ export const handleItemsList = (e) => {
   let item = e.target.elements.addItems.value;
   itemsList.insertAdjacentHTML(
     'beforeend',
-    `<li> ${item} <button>x</button></li>`
+    `<li> ${item} <button onclick=${removeTask}>x</button></li>`
   );
   e.target.elements.addItems.value = '';
 };
 
+const removeTask = (e) => {
+  e.target.parentElement.remove();
+  console.log('hi');
+};
+
 // Main Functions
 
-export async function handleSearch(evt) {
-  evt.preventDefault();
+export async function handleSearch(e) {
+  e.preventDefault();
 
-  let cityName = evt.target.elements.locationSearch.value;
-  const lengthOfStay = evt.target.elements.period.value;
+  let cityName = e.target.elements.locationSearch.value;
+  const lengthOfStay = e.target.elements.period.value;
 
   // FETCH
   try {
@@ -158,21 +163,21 @@ export async function handleSearch(evt) {
         itemsSuggestions.rain.map((item) => {
           return itemsList.insertAdjacentHTML(
             'beforeend',
-            `<li>${item}<button>x</button></li>`
+            `<li>${item}<button onclick=${removeTask}>x</button></li>`
           );
         });
       } else if (sky === 'Clouds') {
         itemsSuggestions.clouds.map((item) => {
           return itemsList.insertAdjacentHTML(
             'beforeend',
-            `<li>${item}<button>x</button></li>`
+            `<li>${item}<button onclick=${removeTask}>x</button></li>`
           );
         });
       } else if (sky === 'Clear') {
         itemsSuggestions.clear.map((item) => {
           return itemsList.insertAdjacentHTML(
             'beforeend',
-            `<li>${item}<button>x</button></li>`
+            `<li>${item}<button onclick=${removeTask}>x</button></li>`
           );
         });
       }
@@ -183,12 +188,9 @@ export async function handleSearch(evt) {
 
   form.reset();
 }
-const removeTask = (event) => {
-  event.target.parentElement.remove();
-};
 
-export const handleNewSearch = (evt) => {
-  evt.preventDefault();
+export const handleNewSearch = (e) => {
+  e.preventDefault();
   weatherContainer.style.display = 'none';
   itemsListContainer.style.display = 'none';
   searchFormContainer.style.display = 'block';
