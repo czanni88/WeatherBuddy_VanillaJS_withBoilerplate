@@ -5,6 +5,7 @@ const weatherContainer = document.querySelector('.forecastContainer');
 const itemsListContainer = document.querySelector('.itemsListContainer');
 const form = document.querySelector('.searchForm');
 const itemsList = document.querySelector('.itemsList');
+
 const itemsSuggestions = {
   rain: ['Umbrella', 'Rubber Boot'],
   clouds: ['Jacket', 'Scarf'],
@@ -59,11 +60,14 @@ export const weatherDailyDataRendering = (arrayOfDailyData_LengthOfStay) => {
 
 export const handleItemsList = (e) => {
   e.preventDefault();
-  let item = e.target.elements.addItems.value;
+  let itemValue = e.target.elements.addItems.value;
   itemsList.insertAdjacentHTML(
     'beforeend',
-    `<li> ${item} <button onclick=${removeTask}>x</button></li>`
+    `<li> ${itemValue} <button class="itemButton">x</button></li>`
   );
+  document.querySelectorAll('.itemButton').forEach((item) => {
+    item.addEventListener('click', removeTask);
+  });
   e.target.elements.addItems.value = '';
 };
 
@@ -163,24 +167,27 @@ export async function handleSearch(e) {
         itemsSuggestions.rain.map((item) => {
           return itemsList.insertAdjacentHTML(
             'beforeend',
-            `<li>${item}<button onclick=${removeTask}>x</button></li>`
+            `<li> ${item} <button class="itemButton">x</button></li>`
           );
         });
       } else if (sky === 'Clouds') {
         itemsSuggestions.clouds.map((item) => {
           return itemsList.insertAdjacentHTML(
             'beforeend',
-            `<li>${item}<button onclick=${removeTask}>x</button></li>`
+            `<li> ${item} <button class="itemButton">x</button></li>`
           );
         });
       } else if (sky === 'Clear') {
         itemsSuggestions.clear.map((item) => {
           return itemsList.insertAdjacentHTML(
             'beforeend',
-            `<li>${item}<button onclick=${removeTask}>x</button></li>`
+            `<li> ${item} <button class="itemButton">x</button></li>`
           );
         });
       }
+      document.querySelectorAll('.itemButton').forEach((item) => {
+        item.addEventListener('click', removeTask);
+      });
     });
   } catch (err) {
     alert(err);
