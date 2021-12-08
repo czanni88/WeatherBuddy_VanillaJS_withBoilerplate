@@ -6,6 +6,9 @@ const itemsListContainer = document.querySelector('.itemsListContainer');
 const form = document.querySelector('.searchForm');
 const itemsList = document.querySelector('.itemsList');
 
+let listOfItems;
+let arrOfItems;
+
 const itemsSuggestions = {
   rain: ['Umbrella', 'Rubber Boot'],
   clouds: ['Jacket', 'Scarf'],
@@ -13,6 +16,22 @@ const itemsSuggestions = {
 };
 
 // Helper Functions
+
+const removeItem = (e) => {
+  const toRemove = e.target.parentElement.firstChild.data;
+
+  arrOfItems.map((item) => {
+    if (item.firstChild.data.includes(toRemove)) {
+      item.remove();
+      arrOfItems.splice(arrOfItems.indexOf(item), 1);
+      console.log(arrOfItems);
+    }
+    saveToLocalStorage();
+  });
+
+  // e.target.parentElement.remove();
+};
+
 export const weatherHeadlineRendering = (lengthOfStay, cityName) => {
   searchFormContainer.style.display = 'none';
   let cityNameSanitized = cityName
@@ -61,19 +80,19 @@ export const weatherDailyDataRendering = (arrayOfDailyData_LengthOfStay) => {
 export const handleItemsList = (e) => {
   e.preventDefault();
   let itemValue = e.target.elements.addItems.value;
+
   itemsList.insertAdjacentHTML(
     'beforeend',
     `<li> ${itemValue} <button class="itemButton">x</button></li>`
   );
   document.querySelectorAll('.itemButton').forEach((item) => {
-    item.addEventListener('click', removeTask);
+    item.addEventListener('click', removeItem);
   });
+  listOfItems = document.getElementsByTagName('li');
+  arrOfItems = Array.from(listOfItems);
+  saveToLocalStorage();
   e.target.elements.addItems.value = '';
-};
-
-const removeTask = (e) => {
-  e.target.parentElement.remove();
-  console.log('hi');
+  console.log(arrOfItems);
 };
 
 // Main Functions
@@ -124,7 +143,6 @@ export async function handleSearch(e) {
     } catch (err) {
       alert('Cannot write to storage');
     }
-    console.log(arrayOfDailyData_LengthOfStay);
 
     // Rendering functions
 
@@ -153,14 +171,13 @@ export async function handleSearch(e) {
         arrayOfDescription: [],
       }
     );
-    console.log(compiledWeatherData);
+
     const { sumOfMax, sumOfMin, arrayOfMain } = compiledWeatherData;
     const averageMaxTemp = sumOfMax / lengthOfStay;
     const averageMinTemp = sumOfMin / lengthOfStay;
     const typesOfSky = arrayOfMain.filter(
       (sky, index) => arrayOfMain.indexOf(sky) === index
     );
-    console.log(averageMaxTemp, averageMinTemp, typesOfSky, itemsSuggestions);
 
     typesOfSky.map((sky) => {
       if (sky === 'Rain') {
@@ -186,29 +203,59 @@ export async function handleSearch(e) {
         });
       }
       document.querySelectorAll('.itemButton').forEach((item) => {
-        item.addEventListener('click', removeTask);
+        item.addEventListener('click', removeItem);
       });
     });
   } catch (err) {
     alert(err);
   }
 
+  // Populate array with Items suggestions to be saved in LocalStorage
+  listOfItems = document.getElementsByTagName('li');
+  arrOfItems = Array.from(listOfItems);
+  console.log(arrOfItems);
+  saveToLocalStorage();
   form.reset();
 }
+
+const saveToLocalStorage = () => {
+  let arrOfValues = [];
+  arrOfItems.map((item) => {
+    arrOfValues.push(item.firstChild.data);
+  });
+  try {
+    localStorage.setItem('items', JSON.stringify(arrOfValues));
+  } catch (err) {
+    alert('Cannot write to storage');
+  }
+};
 
 export const handleNewSearch = (e) => {
   e.preventDefault();
   weatherContainer.style.display = 'none';
   itemsListContainer.style.display = 'none';
   searchFormContainer.style.display = 'block';
+  arrOfItems;
   localStorage.clear();
   window.location.reload();
 };
 
-export const handleLocalStorage = (savedData) => {
+export const handleLocalStorage = (savedData, savedItems) => {
   const { cityName, lengthOfStay, arrayOfDailyData_LengthOfStay } = savedData;
   weatherDailyDataRendering(arrayOfDailyData_LengthOfStay);
   weatherHeadlineRendering(lengthOfStay, cityName);
   weatherContainer.style.display = 'flex';
   itemsListContainer.style.display = 'flex';
+  savedItems.map((item) => {
+    return itemsList.insertAdjacentHTML(
+      'beforeend',
+      `<li> ${item} <button class="itemButton">x</button></li>`
+    );
+  });
+
+  document.querySelectorAll('.itemButton').forEach((item) => {
+    item.addEventListener('click', removeItem);
+  });
+  listOfItems = document.getElementsByTagName('li');
+  arrOfItems = Array.from(listOfItems);
 };

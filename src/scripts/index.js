@@ -17,7 +17,7 @@ clear.addEventListener('click', handleNewSearch); // Function file
 itemsListForm.addEventListener('submit', handleItemsList);
 
 const savedData = JSON.parse(localStorage.getItem('data'));
-
-if (savedData) {
-  handleLocalStorage(savedData);
+const savedItems = JSON.parse(localStorage.getItem('items'));
+if (savedData && savedItems) {
+  handleLocalStorage(savedData, savedItems);
 }
