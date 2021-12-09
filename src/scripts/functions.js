@@ -15,90 +15,6 @@ const itemsSuggestions = {
   clear: ['Short', 'Sunscreen'],
 };
 
-// Helper Functions
-
-const removeItem = (e) => {
-  const toRemove = e.target.parentElement.firstChild.data;
-
-  arrOfItems.map((item) => {
-    if (item.firstChild.data.includes(toRemove)) {
-      item.remove();
-      arrOfItems.splice(arrOfItems.indexOf(item), 1);
-      console.log(arrOfItems);
-    }
-    saveToLocalStorage();
-  });
-
-  // e.target.parentElement.remove();
-};
-
-export const weatherHeadlineRendering = (lengthOfStay, cityName) => {
-  searchFormContainer.style.display = 'none'; // Having the "display none" here instead of inside the handleSearch function, avoids having a blank page while the fetching is not completed.
-  let cityNameSanitized = cityName
-    .split(' ')
-    .map((str) => str[0].toUpperCase() + str.slice(1).toLowerCase())
-    .join(' ');
-  weatherHeadline.innerHTML = `The weather in ${cityNameSanitized} <br> for
-  the next ${lengthOfStay} ${lengthOfStay < 2 ? 'Day' : 'Days'}`;
-  weatherHeadline.insertAdjacentHTML(
-    'beforeend',
-    `<button class="button newSearch" type="button">New Search</button>`
-  );
-  const newSearchButton = document.querySelector('.newSearch');
-  newSearchButton.addEventListener('click', handleNewSearch);
-};
-
-export const weatherDailyDataRendering = (arrayOfDailyData_LengthOfStay) => {
-  let dayCount = 0;
-
-  weatherDailyDetails.innerHTML = '';
-  arrayOfDailyData_LengthOfStay.forEach((day) => {
-    const { max, min } = day.temp;
-    const { main, description, icon } = day.weather[0];
-    const { wind_speed, humidity } = day;
-    dayCount += 1;
-    // console.log(day.weather[0]);
-    weatherDailyDetails.insertAdjacentHTML(
-      'beforeend',
-      `<div class="infoByDay">
-        <h3>${`day ${dayCount}`}</h3>
-        <img class="weatherIcon" src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather icon">
-        <p class="temp">The temperature will vary from ${min}°C to ${max}°C</p>
-        <p class  ="rain"> The day will be ${
-          main === 'Rain'
-            ? `with ${description}`
-            : main === 'Clouds'
-            ? `with ${description} but without rain`
-            : `with ${description}`
-        } and the humidity will be at ${humidity}%</p>
-        <p class="wind">The wind will be at ${wind_speed}m/s, which means a ${
-        wind_speed < 3 ? 'weak' : wind_speed < 6 ? 'mild' : 'strong'
-      } wind</p>
-        </div>`
-    );
-  });
-};
-
-export const handleItemsList = (e) => {
-  e.preventDefault();
-  let itemValue = e.target.elements.addItems.value;
-
-  itemsList.insertAdjacentHTML(
-    'beforeend',
-    `<li> ${itemValue} <button class="itemButton">x</button></li>`
-  );
-  document.querySelectorAll('.itemButton').forEach((item) => {
-    item.addEventListener('click', removeItem);
-  });
-  listOfItems = document.getElementsByTagName('li');
-  arrOfItems = Array.from(listOfItems);
-  saveToLocalStorage();
-  e.target.elements.addItems.value = '';
-  console.log(arrOfItems);
-};
-
-// Main Functions
-
 export async function handleSearch(e) {
   e.preventDefault();
 
@@ -220,16 +136,82 @@ export async function handleSearch(e) {
   form.reset();
 }
 
-const saveToLocalStorage = () => {
-  let arrOfValues = [];
-  arrOfItems.map((item) => {
-    arrOfValues.push(item.firstChild.data);
+export const weatherHeadlineRendering = (lengthOfStay, cityName) => {
+  searchFormContainer.style.display = 'none'; // Having the "display none" here instead of inside the handleSearch function, avoids having a blank page while the fetching is not completed.
+  let cityNameSanitized = cityName
+    .split(' ')
+    .map((str) => str[0].toUpperCase() + str.slice(1).toLowerCase())
+    .join(' ');
+  weatherHeadline.innerHTML = `The weather in ${cityNameSanitized} <br> for
+  the next ${lengthOfStay} ${lengthOfStay < 2 ? 'Day' : 'Days'}`;
+  weatherHeadline.insertAdjacentHTML(
+    'beforeend',
+    `<button class="button newSearch" type="button">New Search</button>`
+  );
+  const newSearchButton = document.querySelector('.newSearch');
+  newSearchButton.addEventListener('click', handleNewSearch);
+};
+
+export const weatherDailyDataRendering = (arrayOfDailyData_LengthOfStay) => {
+  let dayCount = 0;
+
+  weatherDailyDetails.innerHTML = '';
+  arrayOfDailyData_LengthOfStay.forEach((day) => {
+    const { max, min } = day.temp;
+    const { main, description, icon } = day.weather[0];
+    const { wind_speed, humidity } = day;
+    dayCount += 1;
+    // console.log(day.weather[0]);
+    weatherDailyDetails.insertAdjacentHTML(
+      'beforeend',
+      `<div class="infoByDay">
+        <h3>${`day ${dayCount}`}</h3>
+        <img class="weatherIcon" src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather icon">
+        <p class="temp">The temperature will vary from ${min}°C to ${max}°C</p>
+        <p class  ="rain"> The day will be ${
+          main === 'Rain'
+            ? `with ${description}`
+            : main === 'Clouds'
+            ? `with ${description} but without rain`
+            : `with ${description}`
+        } and the humidity will be at ${humidity}%</p>
+        <p class="wind">The wind will be at ${wind_speed}m/s, which means a ${
+        wind_speed < 3 ? 'weak' : wind_speed < 6 ? 'mild' : 'strong'
+      } wind</p>
+        </div>`
+    );
   });
-  try {
-    localStorage.setItem('items', JSON.stringify(arrOfValues));
-  } catch (err) {
-    alert('Cannot write to storage');
-  }
+};
+
+export const addItem = (e) => {
+  e.preventDefault();
+  let itemValue = e.target.elements.addItems.value;
+
+  itemsList.insertAdjacentHTML(
+    'beforeend',
+    `<li> ${itemValue} <button class="itemButton">x</button></li>`
+  );
+  document.querySelectorAll('.itemButton').forEach((item) => {
+    item.addEventListener('click', removeItem);
+  });
+  listOfItems = document.getElementsByTagName('li');
+  arrOfItems = Array.from(listOfItems);
+  saveToLocalStorage();
+  e.target.elements.addItems.value = '';
+  console.log(arrOfItems);
+};
+
+const removeItem = (e) => {
+  const toRemove = e.target.parentElement.firstChild.data;
+
+  arrOfItems.map((item) => {
+    if (item.firstChild.data.includes(toRemove)) {
+      item.remove();
+      arrOfItems.splice(arrOfItems.indexOf(item), 1);
+      console.log(arrOfItems);
+    }
+    saveToLocalStorage();
+  });
 };
 
 export const handleNewSearch = (e) => {
@@ -240,6 +222,18 @@ export const handleNewSearch = (e) => {
   arrOfItems;
   localStorage.clear();
   window.location.reload();
+};
+
+const saveToLocalStorage = () => {
+  let arrOfValues = [];
+  arrOfItems.map((item) => {
+    arrOfValues.push(item.firstChild.data);
+  });
+  try {
+    localStorage.setItem('items', JSON.stringify(arrOfValues));
+  } catch (err) {
+    alert('Cannot write to storage');
+  }
 };
 
 export const handleLocalStorage = (savedData, savedItems) => {

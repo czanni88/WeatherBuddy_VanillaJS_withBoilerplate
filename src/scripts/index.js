@@ -1,15 +1,13 @@
 //Standalone runtime for Regenerator-compiled generator and async functions.
 import regeneratorRuntime from 'regenerator-runtime';
 import '../styles/main.scss';
-import { handleSearch, handleLocalStorage, handleItemsList } from './functions';
+import { handleSearch, handleLocalStorage, addItem } from './functions';
 
-const form = document.querySelector('.searchForm');
+const searchForm = document.querySelector('.searchForm');
+const addItems = document.querySelector('.itemsListContainer');
 
-const itemsListForm = document.querySelector('.itemsListForm');
-
-form.addEventListener('submit', handleSearch);
-
-itemsListForm.addEventListener('submit', handleItemsList);
+searchForm.addEventListener('submit', handleSearch);
+addItems.addEventListener('submit', addItem);
 
 const savedData = JSON.parse(localStorage.getItem('data'));
 const savedItems = JSON.parse(localStorage.getItem('items'));
