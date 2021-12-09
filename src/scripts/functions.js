@@ -33,7 +33,7 @@ const removeItem = (e) => {
 };
 
 export const weatherHeadlineRendering = (lengthOfStay, cityName) => {
-  searchFormContainer.style.display = 'none';
+  searchFormContainer.style.display = 'none'; // Having the "display none" here instead of inside the handleSearch function, avoids having a blank page while the fetching is not completed.
   let cityNameSanitized = cityName
     .split(' ')
     .map((str) => str[0].toUpperCase() + str.slice(1).toLowerCase())
@@ -42,8 +42,10 @@ export const weatherHeadlineRendering = (lengthOfStay, cityName) => {
   the next ${lengthOfStay} ${lengthOfStay < 2 ? 'Day' : 'Days'}`;
   weatherHeadline.insertAdjacentHTML(
     'beforeend',
-    `<button class="button" type="button">New Search</button>`
+    `<button class="button newSearch" type="button">New Search</button>`
   );
+  const newSearchButton = document.querySelector('.newSearch');
+  newSearchButton.addEventListener('click', handleNewSearch);
 };
 
 export const weatherDailyDataRendering = (arrayOfDailyData_LengthOfStay) => {
