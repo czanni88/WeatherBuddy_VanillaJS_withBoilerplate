@@ -8,9 +8,8 @@
   </head>
   <body>
     <main>
-      <h1>
-        Check the weather and create a checklist of items you may need to face
-        the nature elements
+      <h1 class="mainHeader">
+        Check the weather and make a checklist of items to be packed
       </h1>
 
       <div class="searchFormContainer">
@@ -23,17 +22,17 @@
             placeholder="Enter the city name"
           />
 
-          <div class="searchInputField">
-            <label for="period"> I will stay: </label>
-            <select name="period" id="period">
-              <option value="1">&nbspOne day</option>
-              <option value="2">&nbspTwo days</option>
-              <option value="3">&nbspThree days</option>
-              <option value="4">&nbspFour days</option>
-              <option value="5">&nbspFive days</option>
-              <option value="6">&nbspSix days</option>
-              <option value="7">&nbspSeven days</option>
-              <option value="8">&nbspEight days</option>
+          <div class="containerSearchInputFieldPeriod">
+            <label for="period" class="searchPeriodLabel"> I will stay: </label>
+            <select class="searchInputFieldPeriod" name="period" id="period">
+              <option value="1">One day</option>
+              <option value="2">Two days</option>
+              <option value="3">Three days</option>
+              <option value="4">Four days</option>
+              <option value="5">Five days</option>
+              <option value="6">Six days</option>
+              <option value="7">Seven days</option>
+              <option value="8">Eight days</option>
             </select>
             <button type="submit">Go</button>
           </div>
@@ -52,13 +51,18 @@
 
       <div class="itemsListContainer">
         <h2>What should you take with you?</h2>
+        <button class="suggestionButton" type="submit">
+          Generate suggestions
+        </button>
         <form>
           <input
+            class="searchInputField addItemInputField"
             type="text"
             name="addItems"
             id="addItems"
             placeholder="Include in your Checklist"
           />
+
           <button type="submit">Add Item</button>
         </form>
         <ul class="itemsList"></ul>

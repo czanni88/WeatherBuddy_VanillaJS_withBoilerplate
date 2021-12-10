@@ -5,6 +5,7 @@ const weatherContainer = document.querySelector('.forecastContainer');
 const itemsListContainer = document.querySelector('.itemsListContainer');
 const form = document.querySelector('.searchForm');
 const itemsList = document.querySelector('.itemsList');
+const mainHeader = document.querySelector('.mainHeader');
 
 let listOfItems;
 let arrOfItems;
@@ -70,83 +71,79 @@ export async function handleSearch(e) {
     weatherDailyDataRendering(arrayOfDailyData_LengthOfStay);
     weatherHeadlineRendering(lengthOfStay, cityName);
 
-    const compiledWeatherData = arrayOfDailyData_LengthOfStay.reduce(
-      (acc, obj) => {
-        const { max, min } = obj.temp;
-        const { main, description } = obj.weather[0];
+    // const compiledWeatherData = arrayOfDailyData_LengthOfStay.reduce(
+    //   (acc, obj) => {
+    //     const { max, min } = obj.temp;
+    //     const { main, description } = obj.weather[0];
 
-        return {
-          sumOfMax: acc.sumOfMax + max,
-          sumOfMin: acc.sumOfMin + min,
-          arrayOfMain: [...acc.arrayOfMain, main],
-          arrayOfDescription: [...acc.arrayOfDescription, description],
-        };
-      },
-      {
-        sumOfMax: 0,
-        sumOfMin: 0,
-        arrayOfMain: [],
-        arrayOfDescription: [],
-      }
-    );
+    //     return {
+    //       sumOfMax: acc.sumOfMax + max,
+    //       sumOfMin: acc.sumOfMin + min,
+    //       arrayOfMain: [...acc.arrayOfMain, main],
+    //       arrayOfDescription: [...acc.arrayOfDescription, description],
+    //     };
+    //   },
+    //   {
+    //     sumOfMax: 0,
+    //     sumOfMin: 0,
+    //     arrayOfMain: [],
+    //     arrayOfDescription: [],
+    //   }
+    // );
 
-    const { sumOfMax, sumOfMin, arrayOfMain } = compiledWeatherData;
-    const averageMaxTemp = sumOfMax / lengthOfStay;
-    const averageMinTemp = sumOfMin / lengthOfStay;
-    const typesOfSky = arrayOfMain.filter(
-      (sky, index) => arrayOfMain.indexOf(sky) === index
-    );
+    // const { sumOfMax, sumOfMin, arrayOfMain } = compiledWeatherData;
+    // const averageMaxTemp = sumOfMax / lengthOfStay;
+    // const averageMinTemp = sumOfMin / lengthOfStay;
+    // const typesOfSky = arrayOfMain.filter(
+    //   (sky, index) => arrayOfMain.indexOf(sky) === index
+    // );
 
-    typesOfSky.map((sky) => {
-      if (sky === 'Rain') {
-        itemsSuggestions.rain.map((item) => {
-          return itemsList.insertAdjacentHTML(
-            'beforeend',
-            `<li> ${item} <button class="itemButton">x</button></li>`
-          );
-        });
-      } else if (sky === 'Clouds') {
-        itemsSuggestions.clouds.map((item) => {
-          return itemsList.insertAdjacentHTML(
-            'beforeend',
-            `<li> ${item} <button class="itemButton">x</button></li>`
-          );
-        });
-      } else if (sky === 'Clear') {
-        itemsSuggestions.clear.map((item) => {
-          return itemsList.insertAdjacentHTML(
-            'beforeend',
-            `<li> ${item} <button class="itemButton">x</button></li>`
-          );
-        });
-      }
-      document.querySelectorAll('.itemButton').forEach((item) => {
-        item.addEventListener('click', removeItem);
-      });
-    });
+    // typesOfSky.map((sky) => {
+    //   if (sky === 'Rain') {
+    //     itemsSuggestions.rain.map((item) => {
+    //       return itemsList.insertAdjacentHTML(
+    //         'beforeend',
+    //         `<li> ${item} <button class="deleteButton">x</button></li>`
+    //       );
+    //     });
+    //   } else if (sky === 'Clouds') {
+    //     itemsSuggestions.clouds.map((item) => {
+    //       return itemsList.insertAdjacentHTML(
+    //         'beforeend',
+    //         `<li> ${item} <button class="deleteButton">x</button></li>`
+    //       );
+    //     });
+    //   } else if (sky === 'Clear') {
+    //     itemsSuggestions.clear.map((item) => {
+    //       return itemsList.insertAdjacentHTML(
+    //         'beforeend',
+    //         `<li> ${item} <button class="deleteButton">x</button></li>`
+    //       );
+    //     });
+    //   }
+    //   document.querySelectorAll('.deleteButton').forEach((item) => {
+    //     item.addEventListener('click', removeItem);
+    //   });
+    // });
   } catch (err) {
     alert(err);
   }
 
-  // Populate array with Items suggestions to be saved in LocalStorage
-  listOfItems = document.getElementsByTagName('li');
-  arrOfItems = Array.from(listOfItems);
-  console.log(arrOfItems);
-  saveToLocalStorage();
   form.reset();
 }
 
 export const weatherHeadlineRendering = (lengthOfStay, cityName) => {
   searchFormContainer.style.display = 'none'; // Having the "display none" here instead of inside the handleSearch function, avoids having a blank page while the fetching is not completed.
+  mainHeader.style.display = 'none';
   let cityNameSanitized = cityName
     .split(' ')
     .map((str) => str[0].toUpperCase() + str.slice(1).toLowerCase())
     .join(' ');
-  weatherHeadline.innerHTML = `The weather in ${cityNameSanitized} <br> for
-  the next ${lengthOfStay} ${lengthOfStay < 2 ? 'Day' : 'Days'}`;
+  weatherHeadline.innerHTML = `<div><h2>The weather in ${cityNameSanitized} <br> for
+  the next ${lengthOfStay} ${lengthOfStay < 2 ? 'Day' : 'Days'}</h2></div>`;
   weatherHeadline.insertAdjacentHTML(
     'beforeend',
-    `<button class="button newSearch" type="button">New Search</button>`
+    `<div class="newSearchButtonContainer"><button class="button newSearch" type="button">New Search</button></div>`
   );
   const newSearchButton = document.querySelector('.newSearch');
   newSearchButton.addEventListener('click', handleNewSearch);
@@ -165,40 +162,110 @@ export const weatherDailyDataRendering = (arrayOfDailyData_LengthOfStay) => {
     weatherDailyDetails.insertAdjacentHTML(
       'beforeend',
       `<div class="infoByDay">
-        <h3>${`day ${dayCount}`}</h3>
-        <img class="weatherIcon" src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather icon">
-        <p class="temp">The temperature will vary from ${min}°C to ${max}°C</p>
-        <p class  ="rain"> The day will be ${
-          main === 'Rain'
-            ? `with ${description}`
-            : main === 'Clouds'
-            ? `with ${description} but without rain`
-            : `with ${description}`
-        } and the humidity will be at ${humidity}%</p>
-        <p class="wind">The wind will be at ${wind_speed}m/s, which means a ${
+               <div class="descriptionWithImage"><img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather icon"> <p> <span class="alert"> Day ${dayCount}</span> <br> ${
+        main === 'Rain'
+          ? `with ${description}.`
+          : main === 'Clouds'
+          ? `with ${description} but without rain.`
+          : `with ${description}.`
+      }</p></div>
+        
+        <p class="temp"><span class="bold">Temperature:</span> <br>from ${min}°C to ${max}°C and humidity of ${humidity}%.</p>
+       
+        <p class="wind"><span class="bold">Wind speed:</span> ${wind_speed}m/s. <br> That means a ${
         wind_speed < 3 ? 'weak' : wind_speed < 6 ? 'mild' : 'strong'
-      } wind</p>
+      } wind.</p>
         </div>`
     );
   });
+};
+
+export const handleSuggestions = () => {
+  const savedData = JSON.parse(localStorage.getItem('data'));
+  const savedItemsLocalStorage = JSON.parse(localStorage.getItem('items'));
+  let savedItems = [];
+  if (savedItemsLocalStorage) {
+    savedItems = savedItemsLocalStorage.map((item) => item.trim());
+  }
+  // without map(item.trim()) the if() in the typesOfSky.map doesnt work. The items from localStorage have a different format (* TO BE LEARNED - I guess it has something to do with HTMLCollection, which is something that I dont really understand yet)!!!!
+  const { arrayOfDailyData_LengthOfStay } = savedData;
+  const compiledWeatherData = arrayOfDailyData_LengthOfStay.reduce(
+    (acc, obj) => {
+      const { main } = obj.weather[0];
+      return {
+        arrayOfMain: [...acc.arrayOfMain, main],
+      };
+    },
+    {
+      arrayOfMain: [],
+    }
+  );
+
+  const { arrayOfMain } = compiledWeatherData;
+
+  const typesOfSky = arrayOfMain.filter(
+    (sky, index) => arrayOfMain.indexOf(sky) === index
+  );
+
+  typesOfSky.map((sky) => {
+    if (sky === 'Rain') {
+      itemsSuggestions.rain.map((item) => {
+        if (!savedItems.includes(item)) {
+          return itemsList.insertAdjacentHTML(
+            'beforeend',
+            `<li> ${item} <button class="deleteButton">x</button></li>`
+          );
+        }
+      });
+    } else if (sky === 'Clouds') {
+      itemsSuggestions.clouds.map((item) => {
+        if (!savedItems.includes(item)) {
+          return itemsList.insertAdjacentHTML(
+            'beforeend',
+            `<li> ${item} <button class="deleteButton">x</button></li>`
+          );
+        }
+      });
+    } else if (sky === 'Clear') {
+      itemsSuggestions.clear.map((item) => {
+        if (!savedItems.includes(item)) {
+          return itemsList.insertAdjacentHTML(
+            'beforeend',
+            `<li> ${item} <button class="deleteButton">x</button></li>`
+          );
+        }
+      });
+    }
+    document.querySelectorAll('.deleteButton').forEach((item) => {
+      item.addEventListener('click', removeItem);
+    });
+  });
+
+  listOfItems = document.getElementsByTagName('li');
+  arrOfItems = Array.from(listOfItems);
+  saveToLocalStorage();
 };
 
 export const addItem = (e) => {
   e.preventDefault();
   let itemValue = e.target.elements.addItems.value;
 
-  itemsList.insertAdjacentHTML(
-    'beforeend',
-    `<li> ${itemValue} <button class="itemButton">x</button></li>`
-  );
-  document.querySelectorAll('.itemButton').forEach((item) => {
-    item.addEventListener('click', removeItem);
-  });
-  listOfItems = document.getElementsByTagName('li');
-  arrOfItems = Array.from(listOfItems);
-  saveToLocalStorage();
-  e.target.elements.addItems.value = '';
-  console.log(arrOfItems);
+  if (!itemValue) {
+    alert('Please insert an Item in the input field');
+  } else {
+    itemsList.insertAdjacentHTML(
+      'beforeend',
+      `<li> ${itemValue} <button class="deleteButton">x</button></li>`
+    );
+    document.querySelectorAll('.deleteButton').forEach((item) => {
+      item.addEventListener('click', removeItem);
+    });
+    listOfItems = document.getElementsByTagName('li');
+    arrOfItems = Array.from(listOfItems);
+    saveToLocalStorage();
+    e.target.elements.addItems.value = '';
+    console.log(arrOfItems);
+  }
 };
 
 const removeItem = (e) => {
@@ -208,7 +275,6 @@ const removeItem = (e) => {
     if (item.firstChild.data.includes(toRemove)) {
       item.remove();
       arrOfItems.splice(arrOfItems.indexOf(item), 1);
-      console.log(arrOfItems);
     }
     saveToLocalStorage();
   });
@@ -242,14 +308,16 @@ export const handleLocalStorage = (savedData, savedItems) => {
   weatherHeadlineRendering(lengthOfStay, cityName);
   weatherContainer.style.display = 'flex';
   itemsListContainer.style.display = 'flex';
-  savedItems.map((item) => {
-    return itemsList.insertAdjacentHTML(
-      'beforeend',
-      `<li> ${item} <button class="itemButton">x</button></li>`
-    );
-  });
+  if (savedItems) {
+    savedItems.map((item) => {
+      return itemsList.insertAdjacentHTML(
+        'beforeend',
+        `<li> ${item} <button class="deleteButton">x</button></li>`
+      );
+    });
+  }
 
-  document.querySelectorAll('.itemButton').forEach((item) => {
+  document.querySelectorAll('.deleteButton').forEach((item) => {
     item.addEventListener('click', removeItem);
   });
   listOfItems = document.getElementsByTagName('li');

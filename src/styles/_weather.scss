@@ -1,58 +1,70 @@
-.searchFormContainer {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  .searchInputField:not(:last-child) {
-    margin-bottom: 1rem;
-  }
-  h2 {
-    margin-bottom: 1rem;
-  }
-}
-
 .forecastContainer {
   display: none;
-  border: 1px solid green;
-  flex: 1 1 50rem;
-  max-width: 60rem;
-  margin: 1rem;
+  flex-direction: column;
+  width: 90vw;
+
+  margin: 1rem 0rem;
 
   .weatherHeadline {
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    min-height: 6rem;
-    margin: 2rem;
+    margin: 0.5rem;
+    h2 {
+      font-size: 1.5rem;
+    }
+    .newSearchButtonContainer {
+      text-align: center;
+    }
   }
 
   .weatherDailyDetails {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-height: 30rem;
+    max-height: 38rem;
     overflow: auto;
+    border: 0.1rem solid black;
 
     .infoByDay {
       display: flex;
       flex-direction: column;
       flex: 1 1 25rem;
       max-width: 30rem;
-      margin: 1rem;
-      border: 0.5rem solid green;
-      h3 {
+      margin: 0.5rem;
+      border: 0.1rem solid green;
+
+      div.descriptionWithImage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0rem 0.25rem;
+        margin: 0.5rem 0rem;
+        p {
+          margin: 0rem 0rem 0rem 1rem;
+        }
+
+        img {
+          width: 5rem;
+          height: 5rem;
+
+          background-color: aqua;
+          border-radius: 0.375rem;
+        }
+      }
+
+      p {
+        font-size: 1.2rem;
         text-align: center;
-        margin: 1rem;
+        margin: 0.5rem 0rem 0rem 0rem;
+      }
+      span.alert {
+        font-weight: bold;
         color: red;
       }
-      p {
-        margin: 1rem;
-      }
-      img {
-        width: 10rem;
-        height: auto;
-        background-color: aqua;
+      span.bold {
+        font-weight: bold;
       }
     }
   }

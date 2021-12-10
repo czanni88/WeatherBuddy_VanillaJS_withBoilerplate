@@ -1,23 +1,26 @@
 .itemsListContainer {
   display: none;
   flex-direction: column;
-  border: 1px solid black;
-  flex: 1 1 50rem;
-  max-width: 60rem;
-  margin: 1rem;
-  
+  text-align: center;
+  justify-content: center;
+  width: 90vw;
+  margin: 1rem 0rem;
+  .suggestionButton {
+    background-color: lightblue;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
 
-  .itemsListForm {
-    h2 {
-      margin: 2rem 0rem;
-      text-align: center;
-    }
-    form {
-      display: flex;
-      text-align: center;
-      justify-content: space-around;
-      margin: auto;
-      width: 60%;
-    }
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    font-size: 1.2rem;
+    margin: 1rem;
+    padding-left: 1rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
   }
 }
