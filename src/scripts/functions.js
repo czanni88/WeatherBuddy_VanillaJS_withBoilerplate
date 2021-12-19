@@ -282,10 +282,11 @@ const removeItem = (e) => {
 
 export const handleNewSearch = (e) => {
   e.preventDefault();
-  weatherContainer.style.display = 'none';
-  itemsListContainer.style.display = 'none';
-  searchFormContainer.style.display = 'block';
-  arrOfItems;
+  // weatherContainer.style.display = 'none';
+  // itemsListContainer.style.display = 'none';
+  // searchFormContainer.style.display = 'block';
+  // mainHeader.style.display = 'block';
+  // arrOfItems;
   localStorage.clear();
   window.location.reload();
 };

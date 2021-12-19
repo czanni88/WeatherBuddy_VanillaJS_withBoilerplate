@@ -3,6 +3,8 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import './_weather.scss';
 @import './_items.scss';
+@import './globalElements.scss';
+@import './abstracts/variables.scss';
 
 root {
   font-size: 62.5%;
@@ -16,20 +18,28 @@ root {
 }
 
 body {
-  font-size: 1.6rem;
+  font-size: $font-size-regular;
   display: flex;
   justify-content: center;
+  background-image: url(../images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 main {
+  min-height: 100vh;
   width: 95vw;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   h1 {
-    font-size: 1.8rem;
+    font-size: $font-size-large;
+    font-weight: bold;
     text-align: center;
-    margin: 2rem 1rem;
+    margin: 2rem 0rem;
+    backdrop-filter: blur(4px);
   }
 }
 
@@ -38,46 +48,43 @@ main {
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  margin-top: 2rem;
 
   h2 {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: $font-size-medium;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: $border-radius-regular;
+    backdrop-filter: blur(4px);
   }
-}
-
-.searchInputField {
-  text-align: center;
-  font-size: 1.2rem;
-  padding: 0.2rem;
-  border-radius: 0.3rem;
 }
 
 .containerSearchInputFieldPeriod {
   margin-top: 1rem;
   .searchPeriodLabel {
-    font-size: 1.2rem;
+    padding: 0.25rem;
+    border-radius: $border-radius-light;
+    background-color: rgba($color-basic, 0.35);
+    backdrop-filter: blur(6px);
   }
-  button {
-    margin-top: 3rem;
-  }
+
   .searchInputFieldPeriod {
-    font-size: 1.2rem;
     padding: 0.2rem;
     border-radius: 0.3rem;
     background-color: white;
   }
 }
 
-button {
-  font-size: 1.2rem;
-  margin: 1rem;
-  padding: 0.25rem 1rem;
-  border-radius: 0.5rem;
-  background-color: lightgreen;
-}
-
-.deleteButton {
-  background-color: red;
-  margin: 0.5rem;
+@media (min-width: 620px) {
+  .forecastContainer {
+    align-items: center;
+    .weatherHeadline {
+      width: 30%;
+    }
+    .weatherDetailsContainer {
+      margin-top: 2rem;
+    }
+  }
+  .itemsListContainer {
+    width: 30%;
+  }
 }

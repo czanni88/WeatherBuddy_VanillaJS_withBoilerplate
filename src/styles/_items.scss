@@ -1,15 +1,19 @@
+@import './abstracts/variables.scss';
+
 .itemsListContainer {
   display: none;
   flex-direction: column;
   text-align: center;
   justify-content: center;
   width: 90vw;
-  margin: 1rem 0rem;
-  .suggestionButton {
-    background-color: lightblue;
-  }
+  margin: 0.5rem 0rem;
+  background-color: rgba($color-basic, 0.25);
+  backdrop-filter: blur(6px);
+  border-radius: $border-radius-medium;
+
   h2 {
-    font-size: 1.5rem;
+    font-size: $font-size-medium;
+    padding-top: 1rem;
   }
 
   li {
@@ -17,10 +21,16 @@
     justify-content: space-between;
     align-items: center;
     list-style-type: none;
-    font-size: 1.2rem;
     margin: 1rem;
     padding-left: 1rem;
     border: 1px solid black;
-    border-radius: 0.5rem;
+    border-radius: $border-radius-regular;
+    background-color: rgba($color-basic, 0.55);
   }
 }
+
+// @media (min-width: 620px) {
+//   .itemsListContainer {
+//     width: 30%;
+//   }
+// }
