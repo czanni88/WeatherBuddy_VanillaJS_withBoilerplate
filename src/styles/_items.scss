@@ -1,12 +1,11 @@
-@import './abstracts/variables.scss';
+@import "./abstracts/variables.scss";
 
 .itemsListContainer {
   display: none;
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  width: 90vw;
-  margin: 0.5rem 0rem;
+  margin: 2rem 0rem;
   background-color: rgba($color-basic, 0.25);
   backdrop-filter: blur(6px);
   border-radius: $border-radius-medium;
@@ -29,8 +28,8 @@
   }
 }
 
-// @media (min-width: 620px) {
-//   .itemsListContainer {
-//     width: 30%;
-//   }
-// }
+@media (min-width: 620px) {
+  .itemsListContainer {
+    flex: 1 1 40vw;
+  }
+}

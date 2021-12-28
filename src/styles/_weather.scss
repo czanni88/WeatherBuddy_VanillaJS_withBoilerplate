@@ -1,19 +1,15 @@
-@import './abstracts/variables.scss';
+@import "./abstracts/variables.scss";
 
 .forecastContainer {
   display: none;
   flex-direction: column;
-  width: 90vw;
-  // align-items: center; mover para media query
-  margin: 0.5rem 0rem;
+  margin-top: 2rem;
 
   .weatherHeadline {
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    // width: 30%; mover para media query
-    margin: 0.5rem;
     background-color: rgba($color-basic, 0.25);
     backdrop-filter: blur(6px);
     border-radius: $border-radius-medium;
@@ -36,16 +32,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 2rem;
+    height: 100%;
     border-radius: $border-radius-medium;
     background-color: rgba($color-primary, 0.55);
 
     .weatherDailyDetails {
-      width: 98%;
-      height: 90%;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      height: 17.25rem;
+      height: 17.35rem;
       overflow: auto;
 
       .infoByDay {
@@ -92,14 +88,8 @@
   }
 }
 
-// @media (min-width: 620px) {
-//   .forecastContainer {
-//     align-items: center;
-//     .weatherHeadline {
-//       width: 30%;
-//     }
-//     .weatherDetailsContainer {
-//       margin-top: 2rem;
-//     }
-//   }
-// }
+@media (min-width: 620px) {
+  .forecastContainer {
+    flex: 1 1 40vw;
+  }
+}

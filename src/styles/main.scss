@@ -1,10 +1,10 @@
 // This is where your styles can go, import any other scss or css files here or write your own style directly below
 
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
-@import './_weather.scss';
-@import './_items.scss';
-@import './globalElements.scss';
-@import './abstracts/variables.scss';
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./_weather.scss";
+@import "./_items.scss";
+@import "./globalElements.scss";
+@import "./abstracts/variables.scss";
 
 root {
   font-size: 62.5%;
@@ -31,8 +31,6 @@ main {
   width: 95vw;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
   h1 {
     font-size: $font-size-large;
@@ -44,10 +42,8 @@ main {
 }
 
 .searchFormContainer {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   text-align: center;
-  justify-content: center;
 
   h2 {
     font-size: $font-size-medium;
@@ -58,7 +54,7 @@ main {
   }
 }
 
-.containerSearchInputFieldPeriod {
+.searchInputFieldPeriodContainer {
   margin-top: 1rem;
   .searchPeriodLabel {
     padding: 0.25rem;
@@ -75,16 +71,15 @@ main {
 }
 
 @media (min-width: 620px) {
+  .searchResultContainer {
+    margin: 2rem 0rem;
+    display: flex;
+  }
   .forecastContainer {
-    align-items: center;
-    .weatherHeadline {
-      width: 30%;
-    }
-    .weatherDetailsContainer {
-      margin-top: 2rem;
-    }
+    margin-top: 0rem;
+    margin-right: 1rem;
   }
   .itemsListContainer {
-    width: 30%;
+    margin: 0rem;
   }
 }
