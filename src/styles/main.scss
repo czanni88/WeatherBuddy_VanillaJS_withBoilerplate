@@ -76,10 +76,13 @@ main {
     display: flex;
   }
   .forecastContainer {
+    flex: 1 1 40vw;
     margin-top: 0rem;
     margin-right: 1rem;
   }
   .itemsListContainer {
+    flex: 1 1 40vw;
     margin: 0rem;
+    max-width: 20rem;
   }
 }
