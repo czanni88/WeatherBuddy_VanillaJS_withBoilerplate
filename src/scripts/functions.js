@@ -225,6 +225,14 @@ const removeItem = (e) => {
   });
 };
 
+export const clearList = () => {
+  arrOfItems.forEach((item) => {
+    item.remove();
+  });
+
+  localStorage.removeItem("items");
+};
+
 export const handleNewSearch = (e) => {
   e.preventDefault();
   localStorage.clear();
