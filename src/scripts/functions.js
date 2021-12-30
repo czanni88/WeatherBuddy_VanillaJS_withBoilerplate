@@ -87,7 +87,7 @@ export const weatherHeadlineRendering = (lengthOfStay, cityName) => {
   weatherHeadline.innerHTML = `<div><h2>The weather in ${cityNameSanitized} <br> for
   the next ${lengthOfStay} ${lengthOfStay < 2 ? "Day" : "Days"}</h2></div>`;
   weatherHeadline.insertAdjacentHTML(
-    "beforeend",</div>
+    "beforeend",
     `<div class="newSearchButtonContainer"><button class="button newSearch" type="button">New Search</button></div>`
   );
   const newSearchButton = document.querySelector(".newSearch");

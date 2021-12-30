@@ -9,11 +9,11 @@ import {
 } from "./functions";
 
 const searchForm = document.querySelector(".searchForm");
-const addItems = document.querySelector(".addButton");
+const addItems = document.querySelector(".itemsListContainer");
 const suggestionButton = document.querySelector(".suggestionButton");
 
 searchForm.addEventListener("submit", handleSearch);
-addItems.addEventListener("click", addItem);
+addItems.addEventListener("submit", addItem);
 suggestionButton.addEventListener("click", handleSuggestions);
 
 const savedData = JSON.parse(localStorage.getItem("data"));
