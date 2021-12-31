@@ -1,4 +1,4 @@
-@import './abstracts/variables.scss';
+@import "./abstracts/variables.scss";
 
 .searchInputField {
   text-align: center;
@@ -14,7 +14,8 @@ button {
   background-color: $color-actionCall;
 }
 
-.deleteButton {
+.deleteButton,
+.clearButton {
   color: $color-secondary;
   background-color: $color-alert;
   margin: 0.5rem;

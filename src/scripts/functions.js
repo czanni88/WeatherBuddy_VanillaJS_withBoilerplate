@@ -225,8 +225,7 @@ export const clearList = () => {
   arrOfItems.forEach((item) => {
     item.remove();
   });
-  console.log(arrOfItems);
-  // localStorage.removeItem("items");
+  localStorage.removeItem("items");
 };
 
 export const handleNewSearch = (e) => {
