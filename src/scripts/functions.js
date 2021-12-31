@@ -7,7 +7,7 @@ const form = document.querySelector(".searchForm");
 const itemsList = document.querySelector(".itemsList");
 const mainHeader = document.querySelector(".mainHeader");
 
-let listOfItems;
+let NodeListOfItems;
 let arrOfItems;
 
 const itemsSuggestions = {
@@ -186,9 +186,10 @@ export const handleSuggestions = () => {
     });
   });
 
-  listOfItems = document.getElementsByTagName("li");
-  arrOfItems = Array.from(listOfItems);
+  NodeListOfItems = document.getElementsByTagName("li");
+  arrOfItems = Array.from(NodeListOfItems);
   saveToLocalStorage();
+  console.log(arrOfItems);
 };
 
 export const addItem = (e) => {
@@ -205,32 +206,27 @@ export const addItem = (e) => {
     document.querySelectorAll(".deleteButton").forEach((item) => {
       item.addEventListener("click", removeItem);
     });
-    listOfItems = document.getElementsByTagName("li");
-    arrOfItems = Array.from(listOfItems);
+    NodeListOfItems = document.getElementsByTagName("li");
+    arrOfItems = Array.from(NodeListOfItems);
     saveToLocalStorage();
     e.target.elements.addItems.value = "";
-    console.log(arrOfItems);
   }
+  console.log(arrOfItems);
 };
 
 const removeItem = (e) => {
-  const toRemove = e.target.parentElement.firstChild.data;
-
-  arrOfItems.map((item) => {
-    if (item.firstChild.data.includes(toRemove)) {
-      item.remove();
-      arrOfItems.splice(arrOfItems.indexOf(item), 1);
-    }
-    saveToLocalStorage();
-  });
+  const item = e.target.parentElement;
+  item.remove();
+  arrOfItems.splice(arrOfItems.indexOf(item), 1);
+  saveToLocalStorage();
 };
 
 export const clearList = () => {
   arrOfItems.forEach((item) => {
     item.remove();
   });
-
-  localStorage.removeItem("items");
+  console.log(arrOfItems);
+  // localStorage.removeItem("items");
 };
 
 export const handleNewSearch = (e) => {
@@ -269,6 +265,6 @@ export const handleLocalStorage = (savedData, savedItems) => {
   document.querySelectorAll(".deleteButton").forEach((item) => {
     item.addEventListener("click", removeItem);
   });
-  listOfItems = document.getElementsByTagName("li");
-  arrOfItems = Array.from(listOfItems);
+  NodeListOfItems = document.getElementsByTagName("li");
+  arrOfItems = Array.from(NodeListOfItems);
 };
